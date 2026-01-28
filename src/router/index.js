@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import NotFound from '../views/NotFound.vue' // Ensure this file exists!
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,16 +11,14 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/post/:id', // :id allows us to grab the specific post ID later
+      path: '/post/:id',
       name: 'post-detail',
-      // Lazy Loading: This page only loads when the user clicks a post
       component: () => import('../views/PostDetail.vue'),
     },
-    // This catches ANY path that isn't defined above (404 Error)
     {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
-      component: () => import('../views/NotFound.vue'),
+      component: NotFound,
     },
   ],
 })

@@ -10,15 +10,13 @@
   <main>
     <div v-if="error" class="error-box">
       <h2>⚠️ Something went wrong</h2>
-      <p>{{ error }}</p>
       <button @click="resetError">Try Again</button>
     </div>
 
     <Suspense v-else>
       <template #default>
-        <RouterView /> 
+        <RouterView :key="$route.fullPath" /> 
       </template>
-      
       <template #fallback>
         <div class="loading">Loading content...</div>
       </template>
@@ -28,25 +26,24 @@
 
 <script setup>
 import { ref, onErrorCaptured } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router' // Import useRoute
 
 const error = ref(null)
 const router = useRouter()
+const route = useRoute() // Access the current route
 
-// This hook catches errors from any component below App.vue
 onErrorCaptured((err) => {
   error.value = err.message || "An unexpected error occurred."
-  return false // Stop the error from crashing the whole app
+  return false
 })
 
 const resetError = () => {
   error.value = null
-  router.push('/') // Send them home on retry
+  router.push('/')
 }
 </script>
 
 <style scoped>
-/* Simple styling to make it look decent */
 header {
   background: #333;
   padding: 1rem;
@@ -57,16 +54,5 @@ nav a {
   text-decoration: none;
   font-size: 1.2rem;
 }
-.error-box {
-  border: 2px solid red;
-  padding: 20px;
-  color: red;
-  text-align: center;
-}
-.loading {
-  font-size: 1.5rem;
-  text-align: center;
-  margin-top: 2rem;
-  color: #666;
-}
+/* ... keep your other styles ... */
 </style>
