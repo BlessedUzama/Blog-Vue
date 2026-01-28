@@ -26,11 +26,11 @@
 
 <script setup>
 import { ref, onErrorCaptured } from 'vue'
-import { useRouter, useRoute } from 'vue-router' // Import useRoute
+import { useRouter, useRoute } from 'vue-router' 
 
 const error = ref(null)
 const router = useRouter()
-const route = useRoute() // Access the current route
+const route = useRoute() 
 
 onErrorCaptured((err) => {
   error.value = err.message || "An unexpected error occurred."
@@ -54,5 +54,5 @@ nav a {
   text-decoration: none;
   font-size: 1.2rem;
 }
-/* ... keep your other styles ... */
+
 </style>

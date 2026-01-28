@@ -26,17 +26,17 @@ import { ref } from 'vue'
 const route = useRoute()
 const postId = route.params.id
 
-// Reactive variables to control the screen safely
+
 const post = ref(null)
 const error = ref(false)
 const loading = ref(true)
 
-// We use a standard try/catch block without any "awaits" that freeze the app
+
 try {
   const response = await fetch(`https://api.oluwasetemi.dev/posts/${postId}`)
   
   if (!response.ok) {
-    // If 404, just flip the error switch. DO NOT REDIRECT.
+    
     error.value = true
   } else {
     post.value = await response.json()

@@ -15,20 +15,20 @@
 </template>
 
 <script setup>
-// Debugging: Let's see if the fetch actually works
+
 console.log("Attempting to fetch posts...");
 
 const response = await fetch('https://api.oluwasetemi.dev/posts');
 
 if (!response.ok) {
-  // This will force the Error Boundary in App.vue to show
+  
   throw new Error(`API Failed: ${response.status} ${response.statusText}`);
 }
 
 const data = await response.json();
 console.log("Data received:", data);
 
-// Handle cases where data might be wrapped in an object
+
 const posts = Array.isArray(data) ? data : (data.data || []);
 </script>
 
